@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
     master:
-        image: m4lf3s/spark:master
+        image: m4lf3s/spark-sandbox:master
         build: 
             context: ./services/spark
             target: master
@@ -20,7 +20,7 @@ services:
 
 
     worker:
-        image: m4lf3s/spark:worker
+        image: m4lf3s/spark-sandbox:worker
         build: 
             context: ./services/spark
             target: worker
@@ -38,7 +38,7 @@ services:
 
 
     zeppelin:
-        image: "m4lf3s/zeppelin"
+        image: "m4lf3s/spark-sandbox:zeppelin"
         build:
             context: ./services/zeppelin
         container_name: zeppelin
