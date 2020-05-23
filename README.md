@@ -1,6 +1,8 @@
 # spark-sandbox
 Sandbox for Apache Spark using docker-containers
 
+![Build Status](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiNUptaEFYcUVrTGc5Q0ZsWHB0OWxoOHl0UHkvYWlKRkZ6WmJXVTdiRFJLdGN6OTdXMDRlSUpyMmszM0FuVGxtYzF4UkdrOWdtWUJncTFDMm1ZVG9mRzlzPSIsIml2UGFyYW1ldGVyU3BlYyI6IlozcWNaVG1CZ0grbGU0K2YiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+
 # Prerequisites
 
 - Install docker and docker-compose
