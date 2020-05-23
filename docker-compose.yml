@@ -1,0 +1,61 @@
+version: "3.7"
+
+services:
+
+    master:
+        image: m4lf3s/spark:master
+        build: 
+            context: ./services/spark
+            target: master
+        container_name: spark-master
+        ports:
+            - "9090:8080"
+            - "7077:7077"
+        volumes:
+            - ./volumes/apps:/opt/spark-apps
+            - ./volumes/data:/opt/spark-data
+            - spark:/spark
+        environment: 
+            - "SPARK_LOCAL_IP=master"
+
+
+    worker:
+        image: m4lf3s/spark:worker
+        build: 
+            context: ./services/spark
+            target: worker
+        depends_on: 
+            - master
+        environment: 
+            - SPARK_MASTER=spark://master:7077
+            - SPARK_WORKER_CORES=1
+            - SPARK_WORKER_MEMORY=1G
+            - SPARK_DRIVER_MEMORY=128m
+            - SPARK_EXECUTOR_MEMORY=256M
+        volumes:
+            - ./volumes/apps:/opt/spark-apps
+            - ./volumes/data:/opt/spark-data
+
+
+    zeppelin:
+        image: "m4lf3s/zeppelin"
+        build:
+            context: ./services/zeppelin
+        container_name: zeppelin
+        ports:
+            - "8080:8080"
+        depends_on: 
+            - master
+        environment: 
+            - ZEPPELIN_LOG_DIR=/logs
+            - ZEPPELIN_NOTEBOOK_DIR=/notebook
+            - MASTER=spark://master:7077
+            - SPARK_MASTER=spark://master:7077
+            - SPARK_HOME=/zeppelin/spark
+        volumes: 
+            - ./volumes/logs:/logs
+            - ./volumes/notebook:/notebook
+            - spark:/zeppelin/spark
+
+volumes:
+    spark:
